@@ -1,0 +1,38 @@
+table,
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+th {
+    border: 1.5px solid #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#head {
+    background-color: #1b1b1b;
+    color: whitesmoke;
+}
+
+a[href] {
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(8, 8, 8);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(13, 106, 211);
+    text-decoration: underline;
+}
+
+a:active {
+    color: rgb(158, 129, 204);
+    text-decoration: underline;
+}
