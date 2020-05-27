@@ -1,22 +1,40 @@
-const URL = "/json/list.json";
+const URL = "https://api.typeform.com/forms";
+const TOKEN = "Bearer 567g2tjWHKDFnS2oVCZE6iVKYeSLWwSG9qAAbsdQJSDZ";
+const URL_RESPONSES = "https://api.typeform.com/forms/{form_id}/responses";
 const tbody = document.querySelector("#tbody");
 let state = { data: [] };
 main();
 
 async function main() {
     const result = await getData();
-    state = {...state, data: result };
+    console.log(result);
+    state = {...state, data: result.items };
     upDateTable();
 }
 
+function getResponses(formId) {
+    const urlResponses = URL_RESPONSES.replace("{form_id}", formId);
+    return fetch(urlResponses, {
+        headers: {
+            //read about headres in fetch documentation
+            Authorization: TOKEN,
+        },
+    }).then((response) => response.json());
+}
+
 function getData() {
-    return fetch(URL).then((response) => response.json());
+    return fetch(URL, {
+        headers: {
+            //read about headres in fetch documentation
+            Authorization: TOKEN,
+        },
+    }).then((response) => response.json());
 }
 
 function upDateTable() {
     const { data } = state; //destricturing read about it
     tbody.innerHTML = null;
-    data.forEach((obj) => {
+    data.forEach(async(obj) => {
         console.log(obj);
         const tr = document.createElement("tr");
 
@@ -28,13 +46,13 @@ function upDateTable() {
         const tdResponses = document.createElement("td");
 
         const hreflink = document.createElement("a");
-        hreflink.setAttribute("href", obj.href);
-        hreflink.innerText = obj.href;
+        hreflink.setAttribute("href", obj.self.href);
+        hreflink.innerText = obj.self.href;
 
         tdTitle.innerText = obj.title;
 
         const editLink = document.createElement("a");
-        editLink.setAttribute("href", "edit.html?id=232454");
+        editLink.setAttribute("href", "/pages/edit.html?id="); //+ obj.id);
         editLink.innerText = "Edit";
 
         const removeLink = document.createElement("a");
@@ -60,6 +78,8 @@ function upDateTable() {
         removeLink.addEventListener("click", removeItem);
 
         tbody.appendChild(tr);
+        const resultGetResponses = await getResponses(obj.id);
+        console.log(resultGetResponses);
     });
 }
 
