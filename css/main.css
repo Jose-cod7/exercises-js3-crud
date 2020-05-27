@@ -36,3 +36,8 @@ a:active {
     color: rgb(158, 129, 204);
     text-decoration: underline;
 }
+
+form,
+h2 {
+    text-align: center;
+}

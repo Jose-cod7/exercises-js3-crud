@@ -65,9 +65,12 @@ function upDateTable() {
 
 function removeItem() {
     const { data } = state;
+    console.log(state);
     const id = event.target.id;
     const upDatedData = data.filter((obj) => obj.id !== id);
     state = {...state, data: upDatedData };
     upDateTable();
     console.log(id);
 }
+
+//******* STEP 2 ***********
